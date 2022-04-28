@@ -1,6 +1,6 @@
 {
   "name": "ungic-sass-theme",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Dart Sass module for working with colors and creating themes",
   "main": "index.js",
   "scripts": {

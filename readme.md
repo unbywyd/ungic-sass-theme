@@ -42,7 +42,7 @@ And use it in your sass files, but first you need to configure this module!
 
 1. Create your first theme configuration file:
 
-You can see an example of [theme configuration file here]()
+You can see an example of [theme configuration file here](https://github.com/unbywyd/ungic-sass-theme-demo/blob/master/app/themes/default.scss)
 
 ```scss
 // myproject/themes/default.scss 
