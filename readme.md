@@ -27,6 +27,11 @@ This module was created in order to manage the colors and styles of SASS project
 
 ## Get Started
 
+First, you can look at the ready-made [demo project](https://github.com/unbywyd/ungic-sass-theme-demo).
+
+
+### New project
+
 Add [ungic-sass-theme](https://npmjs.com/package/ungic-sass-theme) npm package to your project
 
 ```
