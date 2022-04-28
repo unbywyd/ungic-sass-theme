@@ -534,7 +534,9 @@ $theme: meta.module-variables(theme);
         @return _gray($offset);
     }
 }
-
+@function as-gray($offset:0) {
+    @return _gray($offset);
+}
 /*
 *   Returns gray color as var
 */
@@ -618,7 +620,9 @@ $theme: meta.module-variables(theme);
         @return _color($color-name, $color-tint, $hue-offset, $saturation);
     }
 }
-
+@function as-color($color-name: 'text-color', $color-tint: 0, $hue-offset: 0, $saturation: 0) {
+    @return _color($color-name, $color-tint, $hue-offset, $saturation);
+}
 /*
 *   Returns color as var
 */
@@ -631,9 +635,9 @@ $theme: meta.module-variables(theme);
         $colorName: "#{$colorName}-rgb";
     }
 
-    $key: "#{$colorName}-#{$color-tint * 10}-#{$hue-offset * 10}-#{$saturation}";
+    $key: "#{$colorName}-#{str-replace(meta.inspect($color-tint), '.', 'h')}-#{str-replace(meta.inspect($hue-offset), '.', 'h')}-#{$saturation}";
     
-   $save: store.add($key, $color);
+    $save: store.add($key, $color);
 
     @return var(--#{$key});
 }
