@@ -32,7 +32,7 @@ const additionalDataProvider = (options = {}, prevAdditionalData) => {
 
         $ungic-theme-config: map.merge($ungic-theme-config, ${sassMap});   
         
-        @use "../theme/index.scss" as ${includeAs} with (                      
+        @use "ungic-sass-theme" as ${includeAs} with (                      
             $theme: $ungic-theme-config
         );  
         ${content} 

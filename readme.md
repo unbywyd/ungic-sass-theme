@@ -190,7 +190,27 @@ Therefore, we can generate styles by extracting colors from common css styles an
 
 This is a postcss plugin that extracts colors into separate css rules and adds the desired prefix to the selector, and can extracts such rules into separate `.css` files 
 
+use it like other postcss plugins
 
+```js
+
+const colorExtractor = require("postcss-color-extractor");
+...
+    {
+        loader: "postcss-loader",
+        options: {
+            postcssOptions: {
+                plugins: [
+                    colorExtractor({
+                        extract: input => {
+                            console.log(input.toResult(), input.source?.input?.file);
+                        }
+                    })
+                ]
+            }
+        }
+    }
+```
 
 ## Webpack configuration 
 

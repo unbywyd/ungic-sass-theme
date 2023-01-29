@@ -1,13 +1,14 @@
+import type * as webpack from "webpack";
 import { ProviderOptions } from "./types";
 import * as path from "path";
 import * as fs from "fs";
-interface PartialLoaderContext {
-  resourcePath: string;
-  rootContext: string;
-}
+
 type AdditionalData =
   | string
-  | ((content: string | Buffer, loaderContext: PartialLoaderContext) => string);
+  | ((
+      content: string | Buffer,
+      loaderContext: webpack.LoaderContext<any>
+    ) => string);
 
 const additionalDataProvider = (
   options: ProviderOptions = {},
@@ -28,7 +29,7 @@ const additionalDataProvider = (
 
   return function (
     content: string | Buffer,
-    loaderContext: PartialLoaderContext
+    loaderContext: webpack.LoaderContext<any>
   ) {
     content = content.toString();
     const { resourcePath, rootContext } = loaderContext;
@@ -56,7 +57,7 @@ const additionalDataProvider = (
 
         $ungic-theme-config: map.merge($ungic-theme-config, ${sassMap});   
         
-        @use "../theme/index.scss" as ${includeAs} with (                      
+        @use "ungic-sass-theme" as ${includeAs} with (                      
             $theme: $ungic-theme-config
         );  
         ${content} 

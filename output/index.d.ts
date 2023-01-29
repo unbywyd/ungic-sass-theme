@@ -1,9 +1,6 @@
 /// <reference types="node" />
+import type * as webpack from "webpack";
 import { ProviderOptions } from "./types";
-interface PartialLoaderContext {
-    resourcePath: string;
-    rootContext: string;
-}
-declare type AdditionalData = string | ((content: string | Buffer, loaderContext: PartialLoaderContext) => string);
+declare type AdditionalData = string | ((content: string | Buffer, loaderContext: webpack.LoaderContext<any>) => string);
 declare const additionalDataProvider: (options?: ProviderOptions, prevAdditionalData?: AdditionalData) => AdditionalData;
 export = additionalDataProvider;
