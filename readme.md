@@ -32,11 +32,13 @@ First, you can look at the [ready-made demo project](https://github.com/unbywyd/
 
 ### New project
 
-Add [ungic-sass-theme](https://npmjs.com/package/ungic-sass-theme) npm package to your project
+Add [ungic-sass-theme](https://npmjs.com/package/ungic-sass-theme) **npm** package to your project
 
 ```
 npm install ungic-sass-theme
 ```
+
+### Manual configuration (Sass only)
 
 And use it in your sass files, but first you need to configure this module!
 
@@ -180,14 +182,20 @@ And now about how to add **multiple themes** and **inversion** to your project!
 
 First of all, you need to understand that we cannot generate colors for everything at once in one build, only if you want to use my [ungic](https://ungic.com) framework .. which imitates this behavior...
 
-Therefore, we can generate styles by extracting colors from common css styles and prefixing the selector with the name of our theme or theme type. For this I have created the [postcss-theme-colors-extractor](https://www.npmjs.com/package/theme-colors-extractor) plugin
-
-### postcss-theme-colors-extractor
-
-This is a postcss plugin that extracts colors into separate css rules and adds the desired prefix to the selector, and can extracts such rules into separate .css files 
+Therefore, we can generate styles by extracting colors from common css styles and prefixing the selector with the name of our theme or theme type. For this I have created the 
+[postcss-colors-extractor](https://www.npmjs.com/package/-colors-extractor) plugin
 
 
-#### Webpack configuration example 
+### postcss-colors-extractor
+
+This is a postcss plugin that extracts colors into separate css rules and adds the desired prefix to the selector, and can extracts such rules into separate `.css` files 
+
+
+
+## Webpack configuration 
+
+The second way to inject a theme into your sass using webpack:
+
 
 ```js
 // Webpack configuration

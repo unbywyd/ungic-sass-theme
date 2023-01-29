@@ -1,8 +1,6 @@
 import { ProviderOptions } from "./types";
-const path = require("path");
-const fs = require("fs");
-
-export * as types from "./types";
+import * as path from "path";
+import * as fs from "fs";
 interface PartialLoaderContext {
   resourcePath: string;
   rootContext: string;
