@@ -90,7 +90,7 @@ $theme: meta.module-variables(theme);
       @return colors($color-name);
     }
     $color: map.get($palette, $tint-name);
-    @if type-of($color == number) {
+    @if type-of($color) == number {
       @return color($color-name, $color);
     } @else {
       @return color.adjust($color, $hue: percentToDeg($hue-offset));
