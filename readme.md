@@ -143,6 +143,44 @@ body {
 }
 ```
 
+4. Render Variables
+
+```scss
+@include theme.render-vars();
+```
+
+```scss
+@use "./theme" as theme; // our configured module, also you can use as *
+
+body {
+    background-color: theme.color(background-color); // or theme.bgc()
+    color: theme.color(); // or theme.color(text-color)
+}
+
+.btn {
+    color: theme.primary();
+    border: 2px solid theme.color(primary); // the same as theme.primary();
+    &:hover {
+        /*
+        * Create a tint 20% lighter or darker relative to the primary colors (text and background colors) and also, relative to the current theme (light or dark), 
+        * the light theme will have a lightening, 
+        * the dark theme will darken!
+        */
+        color: theme.primary(.2);
+
+        /*
+        * There are also tools that help you set values relative to the theme type.
+        * subs(valueForLightTheme, valueForDarkTheme), see documentation for details
+        * subs(NUMBER); - inverts the number for the opposite theme type
+        */
+        border-color: theme.primary(theme.subs(2));
+    }
+}
+/* Render color variables */
+@include theme.render-vars();
+```
+
+
 ### Theme inversion
 
 To generate a theme inversion, just switch the **inverse-mode** theme configuration parameter (sass var)
