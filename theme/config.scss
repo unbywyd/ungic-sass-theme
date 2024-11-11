@@ -40,7 +40,7 @@ $theme-type: 'light';
   @if (not map.has-key($colors, extra) and map.has-key($colors, primary) and map.has-key($colors, secondary)) {
     $_primary: map.get($colors, primary);
 
-    @if(type-of($_primary)==list) {
+    @if(meta.type-of($_primary)==list) {
       @if($inverse-mode) {
         $_primary: nth($_primary, 2);
       }
@@ -52,7 +52,7 @@ $theme-type: 'light';
 
     $_secondary: map.get($colors, secondary);
 
-    @if(type-of($_secondary)==list) {
+    @if(meta.type-of($_secondary)==list) {
       @if($inverse-mode) {
         $_secondary: nth($_secondary, 2);
       }
@@ -69,11 +69,11 @@ $theme-type: 'light';
   @each $color-name, $_color in $colors {
     $color: $_color;
 
-    @if(type-of($color)==list) {
-      $color: nth($_color, 1);
+    @if(meta.type-of($color)==list) {
+      $color: list.nth($_color, 1);
 
       @if($inverse-mode) {
-        $color: nth($_color, 2);
+        $color: list.nth($_color, 2);
       }
     }
 

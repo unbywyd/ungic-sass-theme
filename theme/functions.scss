@@ -18,15 +18,15 @@ $theme: meta.module-variables(theme);
 *   check if the color has a palette
 */
 @function has-palette($color-name, $tint-name: null, $silent: false) {
-  @if type-of($color-name) != string {
+  @if meta.type-of($color-name) != string {
     $color-name: meta.inspect($color-name);
   }
-  @if type-of($color-name) != string {
+  @if meta.type-of($color-name) != string {
     @warn '#{$color-name} must be a registered color-name';
     @return false;
   }
   $palettes: get(palettes);
-  @if (type-of($palettes) != map) {
+  @if (meta.type-of($palettes) != map) {
     @if not $silent {
       @warn 'Theme is no palette.';
       @if $tint-name {
@@ -44,7 +44,7 @@ $theme: meta.module-variables(theme);
     }
     @return false;
   }
-  @if type-of(map.get($palettes, $color-name)) != map {
+  @if meta.type-of(map.get($palettes, $color-name)) != map {
     @if not $silent {
       @warn 'The palette of #{$color-name} color must be a map.';
       @if $tint-name {
@@ -76,7 +76,7 @@ $theme: meta.module-variables(theme);
 *   Get color from palette
 */
 @function palette($color-name, $tint-name, $hue-offset: 0) {
-  @if type-of($color-name) != string {
+  @if meta.type-of($color-name) != string {
     $color-name: meta.inspect($color-name);
   }
   @if $color-name == "grey" {
@@ -90,13 +90,13 @@ $theme: meta.module-variables(theme);
       @return colors($color-name);
     }
     $color: map.get($palette, $tint-name);
-    @if type-of($color) == number {
+    @if meta.type-of($color) == number {
       @return color($color-name, $color);
     } @else {
       @return color.adjust($color, $hue: percentToDeg($hue-offset));
     }
   } @else {
-    @if type-of($color-name) != string {
+    @if meta.type-of($color-name) != string {
       @return transparent;
     }
     @return colors($color-name);
@@ -108,10 +108,10 @@ $theme: meta.module-variables(theme);
 *   Lightness control
 */
 @function lighten($color, $intensity) {
-  @if type-of($color) == string {
+  @if meta.type-of($color) == string {
     $color: colors($color);
   }
-  @if type-of($color) != color {
+  @if meta.type-of($color) != color {
     @warn "#{$color} is not a color";
     @return "";
   }
@@ -142,10 +142,10 @@ $theme: meta.module-variables(theme);
 */
 @function darken($color, $intensity) {
   $intensity: math.abs($intensity);
-  @if type-of($color) == string {
+  @if meta.type-of($color) == string {
     $color: colors($color);
   }
-  @if type-of($color) != color {
+  @if meta.type-of($color) != color {
     @warn "#{$color} is not a color";
     @return "";
   }
@@ -215,10 +215,10 @@ $theme: meta.module-variables(theme);
 *   Saturation control
 */
 @function dim($color, $intensity, $hue-offset: 0, $saturation: 0) {
-  @if type-of($color) == string {
+  @if meta.type-of($color) == string {
     $color: colors($color);
   }
-  @if type-of($color) != color {
+  @if meta.type-of($color) != color {
     @warn "#{$color} is not a color";
     @return "";
   }
@@ -229,7 +229,7 @@ $theme: meta.module-variables(theme);
   $options: (
     offset: 0,
   );
-  @if type-of(theme-config(brightness)) == map {
+  @if meta.type-of(theme-config(brightness)) == map {
     $options: map.merge($options, theme-config(brightness));
   }
 
@@ -238,7 +238,7 @@ $theme: meta.module-variables(theme);
     $offset: map.get($options, offset-dim);
   }
 
-  @if type-of($offset) == list {
+  @if meta.type-of($offset) == list {
     $type: get(theme-type);
     @if ($type == light) {
       $offset: list.nth($offset, 1);
@@ -269,7 +269,7 @@ $theme: meta.module-variables(theme);
     }
   }
   @if $change-saturation != 0 {
-    @if type-of($change-saturation) == list {
+    @if meta.type-of($change-saturation) == list {
       $type: get(theme-type);
       @if ($type == light) {
         $change-saturation: list.nth($change-saturation, 1);
@@ -287,10 +287,10 @@ $theme: meta.module-variables(theme);
 *   Saturation control
 */
 @function brighten($color, $intensity, $hue-offset: 0, $saturation: 0) {
-  @if type-of($color) == string {
+  @if meta.type-of($color) == string {
     $color: colors($color);
   }
-  @if type-of($color) != color {
+  @if meta.type-of($color) != color {
     @warn "#{$color} is not a color";
     @return "";
   }
@@ -301,7 +301,7 @@ $theme: meta.module-variables(theme);
   $options: (
     offset: -20deg,
   );
-  @if type-of(theme-config(brightness)) == map {
+  @if meta.type-of(theme-config(brightness)) == map {
     $options: map.merge($options, theme-config(brightness));
   }
   $offset: map.get($options, offset);
@@ -309,7 +309,7 @@ $theme: meta.module-variables(theme);
     $offset: map.get($options, offset-brighten);
   }
 
-  @if type-of($offset) == list {
+  @if meta.type-of($offset) == list {
     $type: get(theme-type);
     @if ($type == light) {
       $offset: list.nth($offset, 1);
@@ -345,7 +345,7 @@ $theme: meta.module-variables(theme);
     }
   }
   @if $change-saturation != 0 {
-    @if type-of($change-saturation) == list {
+    @if meta.type-of($change-saturation) == list {
       $type: get(theme-type);
       @if ($type == light) {
         $change-saturation: list.nth($change-saturation, 1);
@@ -370,13 +370,13 @@ $theme: meta.module-variables(theme);
     saturation-odd-offset: 8,
     saturation-even-offset: 4,
   );
-  @if theme-config(tint) and type-of(theme-config(tint)) == map {
+  @if theme-config(tint) and meta.type-of(theme-config(tint)) == map {
     $options: map.merge($options, theme-config(tint));
   }
-  @if type-of($color) == string {
+  @if meta.type-of($color) == string {
     $color: colors($color);
   }
-  @if type-of($color) != color {
+  @if meta.type-of($color) != color {
     @warn "#{$color} is not a color";
     @return "";
   }
@@ -457,7 +457,7 @@ $theme: meta.module-variables(theme);
 *   Return value relative to active theme type
 */
 @function subs($light, $dark: null) {
-  @if $dark == null and type-of($light) == number {
+  @if $dark == null and meta.type-of($light) == number {
     @if get(inverse-mode) {
       @return $light * -1;
     } @else {
@@ -478,7 +478,7 @@ $theme: meta.module-variables(theme);
 *   Get theme colors or specific color
 */
 @function colors($color: "") {
-  @if type-of($color) != string {
+  @if meta.type-of($color) != string {
     $color: meta.inspect($color);
   }
   @if $color == "gray" or $color == "grey" {
@@ -498,19 +498,19 @@ $theme: meta.module-variables(theme);
 *   Get gray color with $offset
 */
 @function _gray($offset: 0) {
-  @if type-of($offset) == string {
+  @if meta.type-of($offset) == string {
     @return palette("gray", $offset);
   }
   $saturation: 0;
   $hue: 0;
   $theme-config: get(config);
   @if map.has-key($theme-config, gray) and
-    type-of(map.get($theme-config, gray)) ==
+  meta.type-of(map.get($theme-config, gray)) ==
     map
   {
     @if map.has-key(map.get($theme-config, gray), saturation) {
       $saturation: map.get(map.get($theme-config, gray), saturation);
-      @if type-of($saturation) == list {
+      @if meta.type-of($saturation) == list {
         $type: get(theme-type);
         @if ($type == light) {
           $saturation: list.nth($saturation, 1);
@@ -521,7 +521,7 @@ $theme: meta.module-variables(theme);
     }
     @if map.has-key(map.get($theme-config, gray), hue) {
       $hue: map.get(map.get($theme-config, gray), hue);
-      @if type-of($hue) == list {
+      @if meta.type-of($hue) == list {
         $type: get(theme-type);
         @if ($type == light) {
           $hue: list.nth($hue, 1);
@@ -532,7 +532,7 @@ $theme: meta.module-variables(theme);
     }
   }
 
-  @if type-of($hue) == color {
+  @if meta.type-of($hue) == color {
     $hue: list.nth(un-meta.hsl($hue), 1);
   }
 
@@ -586,13 +586,13 @@ $theme: meta.module-variables(theme);
 */
 
 @function _color($color-name, $color-tint: 0, $hue-offset: 0, $saturation: 0) {
-  @if type-of($color-name) != string {
+  @if meta.type-of($color-name) != string {
     $color-name: meta.inspect($color-name);
   }
   /*
     *   $color-tint as string = palette name
     */
-  @if type-of($color-tint) == string {
+  @if meta.type-of($color-tint) == string {
     @return palette($color-name, $color-tint, $hue-offset);
   }
   /*
@@ -600,7 +600,7 @@ $theme: meta.module-variables(theme);
     *   nth(1) = palette name
     *   nth(2) = when no palette then $color-tint must be a number to be used by default
     */
-  @if type-of($color-tint) == list {
+  @if meta.type-of($color-tint) == list {
     $tint-id: nth($color-tint, 1);
     @if (has-palette($color-name, $tint-id, true)) {
       @if (has-palette-tint($color-name, $tint-id, true)) {
@@ -615,18 +615,18 @@ $theme: meta.module-variables(theme);
   @if $color-name == "gray" or $color-name == "grey" {
     @return _gray($color-tint);
   }
-  @if type-of($color-name) != string {
+  @if meta.type-of($color-name) != string {
     @warn '#{$color-name} must be a registered color-name';
     @return transparent;
   }
   $offset: 0;
-  @if $hue-offset != 0 and type-of($hue-offset) == number {
+  @if $hue-offset != 0 and meta.type-of($hue-offset) == number {
     $offset: $hue-offset;
-  } @else if type-of($hue-offset) != number {
+  } @else if meta.type-of($hue-offset) != number {
     @warn '$hue-offset parameter must be a number from -1 to 1';
     @return transparent;
   }
-  @if type-of($color-tint) != number {
+  @if meta.type-of($color-tint) != number {
     @warn '$color-tint parameter must be a number from -1 to 1';
     @return transparent;
   }
