@@ -1,0 +1,75 @@
+$colors: (
+  primary: #07f857,
+  secondary: #3d3931,
+  success: #cce678,
+  danger: #e6787d,
+  info: #4bafee,
+  warning: #eee84b,
+  system: (
+    #c6530c,
+    #ef8646,
+  ),
+  text-color: (
+    #192d20,
+    #fff9ea,
+  ),
+  background-color: (
+    #fff9ea,
+    #363b34,
+  ),
+);
+
+$config: (
+  brightness: (
+    offset-brighten: (
+      15,
+      0,
+    ),
+    // List type possible
+    offset-dim:
+      (
+        -10,
+        0,
+      ),
+    // List type possible
+    saturation-brighten:
+      (
+        0,
+        0,
+      ),
+    // List type possible
+    saturation-dim:
+      (
+        0,
+        0,
+      )
+      // List type possible,,
+  ),
+  relative-light-limit: true,
+  gray: (
+    saturation: 5%,
+    // List type possible
+    hue:
+      (
+        orange,
+        green,
+      )
+      // List type possible,,
+  ),
+);
+
+$palettes: (
+  primary: (
+    lighten: #e8f2c7,
+    darken: #4c5d15,
+  ),
+  secondary: (
+    lighten: #f5f3e6,
+    darken: #2a2925,
+  ),
+);
+
+// Inverse mode
+$inverse-mode: false;
+
+$colors-vars-mode: true;
