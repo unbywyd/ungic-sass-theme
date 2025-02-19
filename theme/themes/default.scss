@@ -1,51 +1,108 @@
-/*------------------------------------------
-*   Theme file
---------------------------------------------
-*   Theme: default
-*   Desc: This file is part of ungic.theme module
-*   API:  https://ungic.com/guide/api/sass.html#ungic-theme
-*/
-
-// Colors can be specified as a list, where the first value will be applied in normal mode and the second in inversion mode
 $colors: (
-    primary: #07f857,
-    secondary: #3d3931,
-    success: #cce678,
-    danger: #e6787d,
-    info: #4bafee,
-    warning: #eee84b,
-    system: (#C6530C, #ef8646),
-    text-color: (#192d20, #fff9ea),
-    background-color: (#fff9ea, #192d20)
+  primary: (
+    #2f52ed,
+    #2f52ed,
+  ),
+  secondary: (
+    #303036,
+    #fffaff,
+  ),
+  success: (
+    #2fbf71,
+    #6bdd9a,
+  ),
+  danger: (
+    #fc5130,
+    #fc5130,
+  ),
+  info: (
+    #2fd4ed,
+    #2fd4ed,
+  ),
+  warning: (
+    #ed9b2f,
+    #ffd166,
+  ),
+  system: (
+    #2f8bed,
+    #30bced,
+  ),
+
+  text-color: (
+    #050401,
+    #fffaff,
+  ),
+
+  background-color: (
+    #fffaff,
+    #050401,
+  ),
 );
 
 $config: (
-    brightness: (
-        offset-brighten: 0,          // List type possible
-        offset-dim: 0,               // List type possible
-        saturation-brighten: (0, 0),  // List type possible
-        saturation-dim: (0, 0)        // List type possible
+  brightness: (
+    offset-brighten: (
+      15,
+      0,
     ),
-    relative-light-limit : true,
-    gray: (
-        saturation: 5%,   // List type possible
-        hue: blue       // List type possible
-    )
+    // List type possible
+    offset-dim:
+      (
+        -10,
+        0,
+      ),
+    // List type possible
+    saturation-brighten:
+      (
+        0,
+        0,
+      ),
+    // List type possible
+    saturation-dim:
+      (
+        0,
+        0,
+      )
+      // List type possible,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+  ),
+  relative-light-limit: true,
+  gray: (
+    saturation: 5%,
+    // List type possible
+    hue:
+      (
+        #5a67d8,
+        #5a67d8,
+      )
+      // List type possible,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+  ),
 );
 
 $palettes: (
-    primary: (
-        lighten: #e8f2c7,
-        darken: #4c5d15
-    ),
-    secondary: (
-        lighten: #f5f3e6,
-        darken: #2a2925
-    )
-); 
-
-
-// Inverse mode
-$inverse-mode: false;
+  primary: (
+    lighten: #b79eff,
+    darken: #121212,
+  ),
+  secondary: (
+    lighten: #b79eff,
+    darken: #121212,
+  ),
+  warning: (
+    lighten: #fff5e0,
+    darken: #ff8800,
+  ),
+  danger: (
+    lighten: #ffe6ed,
+    darken: #e60050,
+  ),
+  success: (
+    lighten: #e4f9e6,
+    darken: #3fa863,
+  ),
+  info: (
+    lighten: #e2f7fc,
+    darken: #009ec2,
+  ),
+);
 
 $colors-vars-mode: true;

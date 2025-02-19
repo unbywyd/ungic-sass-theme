@@ -24,11 +24,11 @@ $inverse-mode: map.get($theme, default-inverse-mode);
 
   @if (meta.type-of($bg-color) == list) {
     @if ($inverse-mode) {
-      @if (list.length($bg-color) == 1) {
-        $bg-color: list.nth($bg-color, 1);
-      } @else {
-        $bg-color: list.nth($bg-color, 2);
-      }
+      $bg-color: if(
+        list.length($bg-color) == 1,
+        list.nth($bg-color, 1),
+        list.nth($bg-color, 2)
+      );
     } @else {
       $bg-color: list.nth($bg-color, 1);
     }
@@ -36,11 +36,11 @@ $inverse-mode: map.get($theme, default-inverse-mode);
 
   @if (meta.type-of($text-color) == list) {
     @if ($inverse-mode) {
-      @if (list.length($text-color) == 1) {
-        $text-color: list.nth($text-color, 1);
-      } @else {
-        $text-color: list.nth($text-color, 2);
-      }
+      $text-color: if(
+        list.length($text-color) == 1,
+        list.nth($text-color, 1),
+        list.nth($text-color, 2)
+      );
     } @else {
       $text-color: list.nth($text-color, 1);
     }
@@ -73,20 +73,28 @@ $inverse-mode: map.get($theme, default-inverse-mode);
     $_primary: map.get($colors, primary);
 
     @if (meta.type-of($_primary) ==list) {
-      @if (list.length($_primary) == 1) {
+      @if ($inverse-mode) {
+        $_primary: if(
+          list.length($_primary) == 1,
+          list.nth($_primary, 1),
+          list.nth($_primary, 2)
+        );
+      } @else {
         $_primary: list.nth($_primary, 1);
-      } @else if($inverse-mode) {
-        $_primary: list.nth($_primary, 2);
       }
     }
 
     $_secondary: map.get($colors, secondary);
 
     @if (meta.type-of($_secondary) == list) {
-      @if (list.length($_secondary) == 1) {
+      @if ($inverse-mode) {
+        $_secondary: if(
+          list.length($_secondary) == 1,
+          list.nth($_secondary, 1),
+          list.nth($_secondary, 2)
+        );
+      } @else {
         $_secondary: list.nth($_secondary, 1);
-      } @else if($inverse-mode) {
-        $_secondary: list.nth($_secondary, 2);
       }
     }
 
@@ -102,10 +110,14 @@ $inverse-mode: map.get($theme, default-inverse-mode);
     $color: $_color;
 
     @if (meta.type-of($color) ==list) {
-      $color: list.nth($_color, 1);
-
       @if ($inverse-mode) {
-        $color: list.nth($_color, 2);
+        $color: if(
+          list.length($color) == 1,
+          list.nth($color, 1),
+          list.nth($color, 2)
+        );
+      } @else {
+        $color: list.nth($color, 1);
       }
     }
 
