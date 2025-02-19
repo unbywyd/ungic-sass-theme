@@ -1,16 +1,44 @@
-$color-vars: ();
-
 @use "sass:map";
+$color-vars: ();
+$inverse-color-vars: ();
 
 @function add($key, $value) {
-    @if not map.has-key($color-vars, $key) {
-        $color-vars: map.merge($color-vars, (
-            $key: $value
-        )) !global;
-    }
+  @if not map.has-key($color-vars, $key) {
+    $color-vars: map.merge(
+      $color-vars,
+      (
+        $key: $value,
+      )
+    ) !global;
     @return $color-vars;
+  }
+
+  @return $color-vars;
+}
+
+@function add-inverse($key, $value) {
+  @if not map.has-key($inverse-color-vars, $key) {
+    $inverse-color-vars: map.merge(
+      $inverse-color-vars,
+      (
+        $key: $value,
+      )
+    ) !global;
+    @return $inverse-color-vars;
+  }
+
+  @return $inverse-color-vars;
 }
 
 @function get() {
-    @return $color-vars;
+  @return $color-vars;
+}
+
+@function get-inverse() {
+  @return $inverse-color-vars;
+}
+
+@mixin resetAll() {
+  $color-vars: () !global;
+  $inverse-color-vars: () !global;
 }

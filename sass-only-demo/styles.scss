@@ -1,0 +1,28 @@
+@use "./core/theme" as *; // our configured module, also you can use as *
+
+:root {
+  line-height: 1.5;
+  font-weight: 400;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.test {
+  text-align: left;
+}
+
+.my-component {
+  background-color: color(primary, 0.7);
+  color: color();
+  padding: 44px;
+  max-width: 400px;
+  border-radius: 26px;
+  border: 2px solid gray(0.85);
+  @include include-vars();
+}
+
+
+@include render-vars('.my-component');

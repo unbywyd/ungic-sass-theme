@@ -2,9 +2,8 @@
 
 @use "./default-theme" as theme-config; // Get your theme configuration
 
-@use "ungic-sass-theme" with (
+@use "../../theme" with (
   $theme: meta.module-variables(theme-config)
-    // and pass it to ungic-sass-theme module
 );
 
-@forward "ungic-sass-theme";
+@forward "../../theme";

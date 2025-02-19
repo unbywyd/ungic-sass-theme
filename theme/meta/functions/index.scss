@@ -7,26 +7,21 @@
 @use "ungic-sass-utils" as *;
 
 @function hsl($color, $strip-unit: true, $asmap: false) {
-  // Проверка, что входное значение — цвет
   @if (meta.type-of($color) != "color") {
     @warn '#{$color} is не цвет';
     @return ();
   }
 
-  // Извлечение каналов H, S, L из цветового пространства HSL
-  // Важно: $space: hsl передается как идентификатор, без кавычек
   $h: color.channel($color, "hue", $space: hsl);
   $s: color.channel($color, "saturation", $space: hsl);
   $l: color.channel($color, "lightness", $space: hsl);
 
-  // Удаление единиц измерения, если требуется
   @if ($strip-unit) {
     $h: strip-unit($h);
     $s: strip-unit($s);
     $l: strip-unit($l);
   }
 
-  // Возврат результата в виде списка или карты
   @if (not $asmap) {
     @return ($h, $s, $l);
   } @else {

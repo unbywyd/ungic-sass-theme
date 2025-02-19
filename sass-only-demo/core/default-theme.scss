@@ -1,5 +1,5 @@
 $colors: (
-  primary: #07f857,
+  primary: #15deb6,
   secondary: #3d3931,
   success: #cce678,
   danger: #e6787d,
@@ -10,12 +10,12 @@ $colors: (
     #ef8646,
   ),
   text-color: (
-    #192d20,
-    #fff9ea,
+    #313338,
+    #f8f9ff,
   ),
   background-color: (
-    #fff9ea,
-    #363b34,
+    #f8f9ff,
+    #313338,
   ),
 );
 
@@ -43,18 +43,14 @@ $config: (
         0,
         0,
       )
-      // List type possible,,
+      // List type possible,,,,,
   ),
   relative-light-limit: true,
   gray: (
-    saturation: 5%,
+    saturation: 20%,
     // List type possible
-    hue:
-      (
-        orange,
-        green,
-      )
-      // List type possible,,
+    hue: #15deb6,
+    // List type possible,,,,
   ),
 );
 

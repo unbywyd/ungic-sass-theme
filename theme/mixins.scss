@@ -1,53 +1,97 @@
-@use "functions"as *;
+@use "functions" as *;
 @use "sass:map";
 @use "sass:list";
-@use "store"as store;
-
+@use "store" as store;
 
 @mixin is-inverse {
-    $inverse-mode: get(inverse-mode);
+  $inverse-mode: getInverseMode();
 
-    @if $inverse-mode {
-        @content;
-    }
+  @if $inverse-mode {
+    @content;
+  }
 }
 
 @mixin is-type($type) {
-    @if get(theme-type)==$type {
-        @content;
-    }
+  @if getThemeType() == $type {
+    @content;
+  }
 }
 
 @mixin is-dark() {
-    @include is-type(dark) {
-        @content
-    }
+  @include is-type(dark) {
+    @content;
+  }
 }
 
 @mixin is-light() {
-    @include is-type(light) {
-        @content
-    }
+  @include is-type(light) {
+    @content;
+  }
 }
 
 @mixin skip-inverse {
-    $inverse-mode: get(inverse-mode);
+  $inverse-mode: getInverseMode();
 
-    @if not $inverse-mode {
-        @content;
-    }
+  @if not $inverse-mode {
+    @content;
+  }
 }
 
-@mixin render-vars($selector: ':root') {
-    #{$selector} {
-        $vars: store.get();
+@mixin include-vars($with-media: true) {
+  $current-theme: getThemeType();
 
-        @if (list.length(map.keys($vars)) > 0) {
+  @if($with-media) {
+    @media (prefers-color-scheme: light) {
+      @if($current-theme == "light") {
+        @include render-default-vars();
+      } @else {
+        @include render-inverse-vars();
+      }
+    }  
+    @media (prefers-color-scheme: dark) {
+      @if($current-theme == "dark") {
+        @include render-default-vars();
+      } @else {
+        @include render-inverse-vars();
+      }
+    }  
+  } @else {
+    @include render-default-vars();
+  }
+ 
+  @at-root .#{$current-theme} & {
+    @include render-default-vars();
+  }
+  $reverse-theme: if($current-theme == "light", "dark", "light");
+  @at-root .#{$reverse-theme} & {
+    @include render-inverse-vars();
+  }
+  @include store.resetAll();
+}
 
-            @each $key,
-            $color in $vars {
-                --#{$key}: #{$color};
-            }
-        }
+
+@mixin render-vars($selector: 'body', $with-media: true) {
+  #{$selector} {
+    @include include-vars($with-media);
+  }
+}
+
+
+@mixin render-default-vars() {
+  $vars: store.get();
+
+  @if (list.length(map.keys($vars)) > 0) {
+    @each $key, $color in $vars {
+      --#{$key}: #{$color};
     }
+  }
+}
+
+@mixin render-inverse-vars() {
+  $vars: store.get-inverse();
+  @if (list.length(map.keys($vars)) > 0) {
+    @each $key, $color in $vars {
+      --#{$key}: #{$color};
+    }
+  }
 }
