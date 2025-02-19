@@ -71,7 +71,7 @@
 
 
 @mixin render-vars($selector: 'body', $with-media: true) {
-  #{$selector} {
+  @at-root #{$selector} {
     @include include-vars($with-media);
   }
 }
