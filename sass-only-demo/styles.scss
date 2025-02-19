@@ -46,11 +46,10 @@
   .btn4 {
     background-color: gray();
   }
-  //@include include-vars(true);
 }
 
 .btn {
   background-color: color(primary, 0.7);
 }
 
-@include render-vars(".my-component");
+@include preprender-vars("body", 0.1);

@@ -40,25 +40,25 @@
 @mixin include-vars($with-media: true) {
   $current-theme: getThemeType();
 
-  @if($with-media) {
+  @if ($with-media) {
     @media (prefers-color-scheme: light) {
-      @if($current-theme == "light") {
+      @if ($current-theme == "light") {
         @include render-default-vars();
       } @else {
         @include render-inverse-vars();
       }
-    }  
+    }
     @media (prefers-color-scheme: dark) {
-      @if($current-theme == "dark") {
+      @if ($current-theme == "dark") {
         @include render-default-vars();
       } @else {
         @include render-inverse-vars();
       }
-    }  
+    }
   } @else {
     @include render-default-vars();
   }
- 
+
   @at-root .#{$current-theme} & {
     @include render-default-vars();
   }
@@ -69,13 +69,27 @@
   @include store.resetAll();
 }
 
-
-@mixin render-vars($selector: 'body', $with-media: true) {
+@mixin render-vars($selector: "body", $with-media: true) {
   @at-root #{$selector} {
     @include include-vars($with-media);
   }
 }
 
+@mixin preprender-vars($selector: "body", $step-number: 0.05, $with-media: true) {
+  $colors: getColors();
+  $color-names: map.keys($colors);
+  $colors: list.append($color-names, "gray");
+  @include store.resetAll();
+  @each $color-name in $colors {
+    $step: -1; 
+
+    @while $step <= 1 {
+      $generated-color: color($color-name, $step);
+      $step: $step + $step-number;
+    }
+  }
+  @include render-vars($selector, $with-media);
+}
 
 @mixin render-default-vars() {
   $vars: store.get();
