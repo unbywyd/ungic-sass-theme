@@ -232,6 +232,134 @@ To apply variables globally:
 
 ---
 
+### **📌 Advanced Pre-Rendering for Ungic SASS Theme Module**
+
+The **Ungic SASS Theme Module** now includes **a pre-rendering feature**, allowing developers to **generate and store color variables upfront** instead of dynamically computing them at runtime.  
+
+This is particularly useful when creating **design systems, UI libraries, or multiple theme configurations**, ensuring **all colors are available in a single generated file**.  
+
+---
+
+## **🎨 Why Use Pre-Rendering?**
+By default, colors are **only generated when used** inside a component or global scope. This **keeps the final CSS optimized** but might **not be ideal** for libraries, where you want a predefined set of color variables.  
+
+**Pre-rendering allows you to:**  
+✅ **Generate all color variations upfront** – no need for per-component computation.  
+✅ **Store variables in a single file** – avoid duplication across components.  
+✅ **Create multiple themes with different configurations** – simply switch files.  
+✅ **Reduce runtime overhead** – variables are already calculated.  
+✅ **Ensure consistency** – all components reference the same colors.  
+
+---
+
+## **⚙️ How Pre-Rendering Works**
+Pre-rendering creates a **fixed color scale** with a specified **step size** (`$step-number`), generating colors **in the range of -1 to 1**.  
+
+🔹 Instead of defining colors dynamically in each component, pre-rendering allows storing **all possible color variations upfront** in CSS variables.  
+
+🔹 However, **this method has limitations** (see **Pros & Cons** section below).  
+
+---
+
+## **📜 Pre-Rendering Mixin**
+```scss
+@mixin preprender-vars($selector: "body", $step-number: 0.05, $with-media: true) {
+  $colors: getColors(); // Get all theme colors
+  $color-names: map.keys($colors); // Extract color names
+  $colors: list.append($color-names, "gray"); // Include grayscale
+
+  @include store.resetAll(); // Reset variable store
+
+  // Loop through all colors
+  @each $color-name in $colors {
+    $step: -1; // Start from -1
+
+    @while $step <= 1 {
+      $generated-color: color($color-name, $step); // Generate color variation
+      $step: $step + $step-number; // Increment step
+    }
+  }
+
+  @include render-vars($selector, $with-media); // Apply rendering
+}
+```
+
+---
+
+## **📌 How to Use It**
+Instead of manually defining color variables inside each component, use **preprender-vars()** to generate a **theme-wide set of colors**:  
+```scss
+@include preprender-vars();
+```
+This will:
+- Precompute **all shades of every theme color**.
+- Store them in **CSS variables**.
+- Make them accessible globally **without recalculating** in components.
+
+---
+
+## **🔹 Pre-Rendering vs. On-Demand Rendering**
+| Feature               | Pre-Rendering (`preprender-vars()`)  | Dynamic Rendering (`color() inside component`) |
+|----------------------|------------------------------------|-----------------------------------|
+| **Performance**      | 🟢 **Optimized** (generated once) | 🔴 **Recomputed in each component** |
+| **Flexibility**      | 🔴 **Limited color adjustments**  | 🟢 **Full color customization** |
+| **File Size**        | 🔴 **Larger (all variations stored)** | 🟢 **Smaller (only needed colors)** |
+| **Best for...**      | 📦 **Libraries, UI frameworks**   | 🎨 **Individual UI components** |
+
+---
+
+## **✅ Pros & ❌ Cons of Pre-Rendering**
+### **✅ Advantages**
+✔ **One-time computation** – No need to recalculate colors in each component.  
+✔ **No duplication** – Colors are stored **once** in a dedicated file.  
+✔ **Better for design systems** – Ensures **color consistency** across projects.  
+✔ **Multiple themes support** – Create different theme files and load them dynamically.  
+
+### **❌ Limitations**
+⚠ **Limited flexibility** – Only generates **a fixed color scale** (step size is developer-defined).  
+⚠ **Cannot generate any color dynamically** – Only **predefined variations** are available.  
+⚠ **No access to advanced color parameters** – The **lightness and brightness controls** available in `color()` are **not** supported in pre-render.  
+⚠ **Might increase CSS size** – Generates **all possible variations**, even if some are unused.  
+
+---
+
+## **🎯 When Should You Use Pre-Rendering?**
+### **Use Pre-Rendering When:**
+✔ You are **building a UI library** where colors should be predefined.  
+✔ You need **multiple themes** as separate files (`theme-first.css`, `theme-secondary.css`).  
+✔ You want **all color variations stored upfront** instead of computing them dynamically.  
+
+### **Avoid Pre-Rendering When:**
+❌ You need **dynamic, real-time color generation** (e.g., custom gradients, on-the-fly calculations).  
+❌ You want **maximum flexibility** for theme colors inside components.  
+❌ You prefer **lighter CSS output**, as pre-rendering generates **all** variations.  
+
+---
+
+## **🎨 Example: Multi-Theme Pre-Rendering**
+You can create **separate theme files** using `preprender-vars()`:
+### **📌 First Theme (`theme-first.scss`)**
+```scss
+@use "base-theme" with ($theme: first-theme-config);
+@include preprender-vars();
+```
+### **📌 Secondary Theme (`theme-secondary.scss`)**
+```scss
+@use "base-theme" with ($theme: secondary-theme-config);
+@include preprender-vars();
+```
+Now, **switch themes by loading different files** in your app! 🎨  
+
+---
+
+## **🚀 Summary**
+✨ **Pre-Rendering is a powerful feature** that allows generating a **fixed set of colors** in a single file.  
+
+📌 **Great for:** Libraries, UI systems, and multi-theme setups.  
+📌 **Not ideal for:** Cases where you need highly dynamic color adjustments.  
+
+💡 **Use it when you need theme-wide consistency and precomputed colors!** 🚀
+
 ## **📜 Conclusion**
 ✨ **Ungic SASS Theme** makes theme management effortless and powerful.  
 🎨 With automatic **color adjustments, inversion, and smart CSS variables**, you can **focus on styling, not maintaining color logic**.  
