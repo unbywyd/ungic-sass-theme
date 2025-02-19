@@ -263,7 +263,7 @@ Pre-rendering creates a **fixed color scale** with a specified **step size** (`$
 
 ## **📜 Pre-Rendering Mixin**
 ```scss
-@mixin preprender-vars($selector: "body", $step-number: 0.05, $with-media: true) {
+@mixin prerender-vars($selector: "body", $step-number: 0.05, $with-media: true) {
   $colors: getColors(); // Get all theme colors
   $color-names: map.keys($colors); // Extract color names
   $colors: list.append($color-names, "gray"); // Include grayscale
@@ -287,9 +287,9 @@ Pre-rendering creates a **fixed color scale** with a specified **step size** (`$
 ---
 
 ## **📌 How to Use It**
-Instead of manually defining color variables inside each component, use **preprender-vars()** to generate a **theme-wide set of colors**:  
+Instead of manually defining color variables inside each component, use **prerender-vars()** to generate a **theme-wide set of colors**:  
 ```scss
-@include preprender-vars();
+@include prerender-vars();
 ```
 This will:
 - Precompute **all shades of every theme color**.
@@ -299,7 +299,7 @@ This will:
 ---
 
 ## **🔹 Pre-Rendering vs. On-Demand Rendering**
-| Feature               | Pre-Rendering (`preprender-vars()`)  | Dynamic Rendering (`color() inside component`) |
+| Feature               | Pre-Rendering (`prerender-vars()`)  | Dynamic Rendering (`color() inside component`) |
 |----------------------|------------------------------------|-----------------------------------|
 | **Performance**      | 🟢 **Optimized** (generated once) | 🔴 **Recomputed in each component** |
 | **Flexibility**      | 🔴 **Limited color adjustments**  | 🟢 **Full color customization** |
@@ -337,16 +337,16 @@ This will:
 ---
 
 ## **🎨 Example: Multi-Theme Pre-Rendering**
-You can create **separate theme files** using `preprender-vars()`:
+You can create **separate theme files** using `prerender-vars()`:
 ### **📌 First Theme (`theme-first.scss`)**
 ```scss
 @use "base-theme" with ($theme: first-theme-config);
-@include preprender-vars();
+@include prerender-vars();
 ```
 ### **📌 Secondary Theme (`theme-secondary.scss`)**
 ```scss
 @use "base-theme" with ($theme: secondary-theme-config);
-@include preprender-vars();
+@include prerender-vars();
 ```
 Now, **switch themes by loading different files** in your app! 🎨  
 
