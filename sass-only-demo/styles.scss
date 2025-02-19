@@ -16,13 +16,41 @@
 
 .my-component {
   background-color: color(primary, 0.7);
-  color: color();
+  color: color(); // or theme.color(text-color)
   padding: 44px;
   max-width: 400px;
   border-radius: 26px;
   border: 2px solid gray(0.85);
-  @include include-vars();
+  .btn {
+    border: none;
+    padding: 0 20px;
+    height: 44px;
+    border-radius: 6px;
+    color: color(text-color);
+  }
+  [class*="btn"] {
+    border: none;
+    padding: 0 20px;
+    height: 44px;
+    border-radius: 6px;
+  }
+  .btn1 {
+    background-color: gray(0.6);
+  }
+  .btn2 {
+    background-color: gray(0.4);
+  }
+  .btn3 {
+    background-color: gray(0.8);
+  }
+  .btn4 {
+    background-color: gray();
+  }
+  //@include include-vars(true);
 }
 
+.btn {
+  background-color: color(primary, 0.7);
+}
 
-@include render-vars('.my-component');
+@include render-vars(".my-component");
